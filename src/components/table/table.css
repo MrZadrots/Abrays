@@ -1,0 +1,14 @@
+.tableMain{
+    margin-top: 15px;
+    
+}
+thead{
+    background-color:#474955;
+    font-family: 'Roboto';
+    font-weight: 600;
+    font-size: 14px;
+    color: #FFFFFF;
+    font-style: normal;
+    height: 54px;
+    
+}
