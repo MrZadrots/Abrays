@@ -6,7 +6,6 @@ interface LineItemProps{
     line:dataType;
 }
 export const Line:React.FC<LineItemProps> = ({line}) =>{
-    console.log(line)
     return(
         <tr>
             <td>{line.id.toLocaleString()}</td>

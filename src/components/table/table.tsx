@@ -6,16 +6,18 @@ import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { fetchDataTable } from '../../store/action-creators/data'
 import { Line } from '../line/line'
 import { dataType } from '../../types/types'
-
+import { Pagination } from 'semantic-ui-react'
 
 const Table:React.FC = () =>{
     const dispatch = useAppDispatch();
     const {data,error,loading} = useTypedSelector(state => state.data)
-    const [currentPage , setCurrentPage] = useState(1)
-
+    let dataVisible:dataType[] = data
+    const [currentPage , setCurrentPage] = useState(0)
+    const allPages = Math.ceil(data.Lenght/10)
 
     useEffect(()=>{
         dispatch(fetchDataTable())
+        dataVisible = data
     },[])
     console.log(data)
 
@@ -51,7 +53,10 @@ const Table:React.FC = () =>{
                             </tr>
                         </thead>
                         <tbody>
-                            {data.map((el:dataType) =>{
+                            <Pagination defaultActivePage={currentPage} firstItem={null} lastItem={null} pointing secondary totalPages={10} onClick={(e:any) => {
+                                console.log(e.target.getAttribute('value'))
+                                setCurrentPage(e.target.getAttribute('value'))}}/>
+                            {dataVisible.slice(currentPage * 10 , (currentPage * 10) + 10).map((el:dataType) =>{
                                 return(<Line line={el} ></Line>)
                             })}
                         </tbody>
