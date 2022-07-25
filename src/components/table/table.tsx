@@ -1,8 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './table.css'
+import { useDispatch } from 'react-redux'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { fetchDataTable } from '../../store/action-creators/data'
+import { Line } from '../line/line'
+import { dataType } from '../../types/types'
 
 
 const Table:React.FC = () =>{
+    const dispatch = useAppDispatch();
+    const {data,error,loading} = useTypedSelector(state => state.data)
+    const [currentPage , setCurrentPage] = useState(1)
+
+
+    useEffect(()=>{
+        dispatch(fetchDataTable())
+    },[])
+    console.log(data)
+
+    if (loading){
+        return(<h1>Загрузка</h1>)
+    }
+    if(error){
+        return(<h1>{error}</h1>)
+    }
     return(
         <div className="container">
             <div className="row">
@@ -28,6 +50,11 @@ const Table:React.FC = () =>{
                                 </th>
                             </tr>
                         </thead>
+                        <tbody>
+                            {data.map((el:dataType) =>{
+                                return(<Line line={el} ></Line>)
+                            })}
+                        </tbody>
                     </table>
                 </div>
             </div>
