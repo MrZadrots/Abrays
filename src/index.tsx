@@ -14,7 +14,6 @@ const root = ReactDOM.createRoot(
 root.render(
   <Provider store={store}>
     <React.StrictMode>
-      <Header/>
       <MainPage/>
   </React.StrictMode>
   </Provider>
