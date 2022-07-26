@@ -25,8 +25,79 @@ const SearchInput:React.FC<ISearchInput> = (dataVisiavble) =>{
                 line.body.toLowerCase().includes(searchText.toLowerCase())
         })
         setData(filteredData)
-        console.log("filteredData", filteredData)
     }
+
+
+    const sorted = (massive:dataType[],name:string,mode:number) =>{
+        console.log("DATA", massive)
+        console.log("name",name)
+        console.log("method",mode)
+        switch(name){
+            case 'id':
+                if(mode===1){
+                    return massive.sort((a, b) => a.id > b.id ? 1 : -1)
+                }
+                else{
+                    return massive.sort((a, b) => a.id < b.id ? 1 : -1)
+                };
+            case 'title':
+                if(mode===1){
+                    return massive.sort((a, b) => a.title > b.title ? 1 : -1)
+                }
+                else{
+                    return massive.sort((a, b) => a.title < b.title ? 1 : -1)
+                }
+            
+            default:
+                return massive   
+        }
+
+    }
+    const sortedHandler = (e:any) =>{
+        console.log(e.target)
+        if(e.target.classList.contains("fa")){
+            e.target.classList.toggle('rotate')
+            if(e.target.classList.contains("id")){
+                if(e.target.classList.contains('rotate')){
+                    const tmp = sorted(data,'id',1)
+                    setData(tmp)
+                    console.log("seted DATA", data)
+                }
+                else{
+                    const tmp = sorted(data,'id',0)
+                    setData(tmp)
+                    console.log("seted DATA", data)
+                }
+            }
+
+            if(e.target.classList.contains("title")){
+                if(e.target.classList.contains('rotate')){
+                    const tmp = sorted(data,'title',1)
+                    setData(tmp)
+                    console.log("seted DATA", data)
+                }
+                else{
+                    const tmp = sorted(data,'title',0)
+                    setData(tmp)
+                    console.log("seted DATA", data)
+                }
+            }
+
+            if(e.target.classList.contains("body")){
+                if(e.target.classList.contains('rotate')){
+                    const tmp = sorted(data,'body',1)
+                    setData(tmp)
+                    console.log("seted DATA", data)
+                }
+                else{
+                    const tmp = sorted(data,'body',0)
+                    setData(tmp)
+                    console.log("seted DATA", data)
+                }
+            }
+        }
+    }
+
     return(
         <div className="mainContainer">
             <div className="container">
@@ -48,7 +119,7 @@ const SearchInput:React.FC<ISearchInput> = (dataVisiavble) =>{
             </div>
             <div className='container'>
                 <div className="row">
-                    <Table dataVisible={data}/>
+                    <Table dataVisible={data} sortedHandler={sortedHandler}/>
                 </div>
             </div>
         </div>

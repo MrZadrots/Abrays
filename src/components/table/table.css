@@ -15,3 +15,16 @@ thead{
 .paginationMain{
     width: 100px;
 }
+.thContainer{
+    min-width: 64px;
+}
+
+  
+.thContainer span{
+    margin-right: 34px;
+}
+
+.rotate {
+    transform: rotate(180deg);
+    padding-left: 34px;
+}

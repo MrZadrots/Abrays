@@ -8,7 +8,7 @@ export const dataReducer = (state = initialState, action:DataAction): DataState 
         case DataActionTypes.FETCH_DATA_SUCCESS:
             return {loading:false, error:null, data: action.payload};
         case DataActionTypes.FETCH_DATA_ERROR:
-            return {loading:false, error:action.payload, data: []};
+            return {loading:false, error:action.payload, data: []};  
         default:
             return state
     }

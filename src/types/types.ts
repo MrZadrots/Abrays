@@ -8,7 +8,7 @@ export interface dataType{
 export enum DataActionTypes{
     FETCH_DATA = 'FETCH_DATA',
     FETCH_DATA_SUCCESS = 'FETCH_DATA_SUCCESS',
-    FETCH_DATA_ERROR = 'FETCH_DATA_ERROR'
+    FETCH_DATA_ERROR = 'FETCH_DATA_ERROR',
 }
 
 
@@ -35,8 +35,7 @@ interface FetchDataErrorAction{
     payload:string
 }   
 
-
-export type DataAction = FetchDataAction | FetchDataErrorAction | FetchDataSuccessAction
+export type DataAction = FetchDataAction | FetchDataErrorAction | FetchDataSuccessAction 
 
 
 export interface dataTypeList extends Array<dataType>{}

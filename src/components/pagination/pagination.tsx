@@ -20,19 +20,19 @@ export const Pagination:React.FC<IPagination> = ({onPageChange,totalCount,siblin
 
         return null
     }
-    const onNext = () =>{
+    const onNext = (e:any) =>{
         if(currentPage+2<=lastPage){
             console.log("onNext")
             console.log("to",currentPage)
-            onPageChange(currentPage+2)
+            onPageChange(currentPage+2,e)
             console.log("do", currentPage)
         }
     }
 
-    const onPrev = () =>{
+    const onPrev = (e:any) =>{
         console.log("onPrev")
         if(currentPage-1!>=0){
-            onPageChange(currentPage) 
+            onPageChange(currentPage,e) 
         }
     }
 
@@ -47,7 +47,7 @@ export const Pagination:React.FC<IPagination> = ({onPageChange,totalCount,siblin
           className='pagination-item'
           onClick={onPrev}
         >
-          <a className="page-link" href="#"><div className="arrow left" /> Назад</a>
+          <a className="page-link my-page-link-right" href="#"><div className="arrow left" /> Назад</a>
         </li>
         {typeof(paginationRange) == 'object'?paginationRange.map(pageNumber => {
           if (pageNumber  === DOTS) {
@@ -57,7 +57,7 @@ export const Pagination:React.FC<IPagination> = ({onPageChange,totalCount,siblin
           return (
             <li
               className='pagination-item'
-              onClick={() => onPageChange(pageNumber)}
+              onClick={(e) => onPageChange(pageNumber,e)}
             >
                 <a className="page-link" href="#">{pageNumber}</a>
             </li>
@@ -67,7 +67,7 @@ export const Pagination:React.FC<IPagination> = ({onPageChange,totalCount,siblin
           className='pagination-item'
           onClick={onNext}
         >
-            <a className="page-link" href="#"><div className="arrow right" />Далее</a>
+            <a className="page-link my-page-link-left" href="#"><div className="arrow right" />Далее</a>
         </li>
       </ul>
     )

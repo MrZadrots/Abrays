@@ -5,3 +5,19 @@
 .right{
     margin-left: 100px;
 }
+
+.my-page-link-right{
+    margin-right: 375px;
+}
+.my-page-link-left{
+    margin-left: 375px;
+}
+.page-link{
+    border: none;
+    font-family: 'Roboto';
+    font-weight: 500 ;
+    font-size: 24px;
+    color: #474955;
+    font-style: normal;
+
+}
