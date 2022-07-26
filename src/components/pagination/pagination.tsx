@@ -21,12 +21,18 @@ export const Pagination:React.FC<IPagination> = ({onPageChange,totalCount,siblin
         return null
     }
     const onNext = () =>{
-        onPageChange(currentPage+1)
+        if(currentPage+2<=lastPage){
+            console.log("onNext")
+            console.log("to",currentPage)
+            onPageChange(currentPage+2)
+            console.log("do", currentPage)
+        }
     }
 
     const onPrev = () =>{
-        if(currentPage-1!>=1){
-            onPageChange(currentPage-1) 
+        console.log("onPrev")
+        if(currentPage-1!>=0){
+            onPageChange(currentPage) 
         }
     }
 
@@ -34,39 +40,35 @@ export const Pagination:React.FC<IPagination> = ({onPageChange,totalCount,siblin
     
     console.log("asdasdadasadasda")
     return(
-        <div className="container">
-            <div className="row">
-                <div className="col">
-                    <ul className='pagination'>
-                        <li className='pagination-item' onClick={onPrev}>
-                            <a className='' href="#"><div className="arrow left" />Назад</a>
-                        </li>
-                        {typeof(paginationRange) == 'object'? paginationRange.map(pageNumber => {
-                            if (pageNumber === DOTS) {
-                                return <li className="pagination-item dots"><a className='page-link' href="#">&#8230;</a></li>;
-                            }
-                    
-                            return (
-                                <li
-                                className='pagination-item'
-                                onClick={() => onPageChange(pageNumber)}
-                                >
-                                <a className="page-link" href="#">{pageNumber}</a>
-                                </li>
-                            );
-                        }):<></>}
-                        <li
-                        className='pagination-item'
-                        onClick={onNext}
-                        >
-                            <a className="my-page-link" href="#"><div className="arrow right">Далее</div></a>
-                        </li>
-                    </ul>
-                </div>
-                <div className="col">
-                    <span>asdasd</span>
-                </div>
-            </div>
-        </div>
+        <ul
+        className='pagination'
+      >
+        <li
+          className='pagination-item'
+          onClick={onPrev}
+        >
+          <a className="page-link" href="#"><div className="arrow left" /> Назад</a>
+        </li>
+        {typeof(paginationRange) == 'object'?paginationRange.map(pageNumber => {
+          if (pageNumber  === DOTS) {
+            return <li className="pagination-item dots"><a className="page-link" href="#">&#8230;</a></li>;
+          }
+  
+          return (
+            <li
+              className='pagination-item'
+              onClick={() => onPageChange(pageNumber)}
+            >
+                <a className="page-link" href="#">{pageNumber}</a>
+            </li>
+          );
+        }): <></>}
+        <li
+          className='pagination-item'
+          onClick={onNext}
+        >
+            <a className="page-link" href="#"><div className="arrow right" />Далее</a>
+        </li>
+      </ul>
     )
 }
