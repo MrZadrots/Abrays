@@ -32,14 +32,10 @@ const MainPage:React.FC = () =>{
         <div>
             <div className='container'>
                 <div className="row">
-                    <SearchInput />
+                    <SearchInput dataVisiavble={dataVisible}/>
                 </div>
             </div>
-            <div className='container'>
-                <div className="row">
-                    <Table dataVisible={dataVisible}/>
-                </div>
-            </div>
+            
         </div>
     )
 }
