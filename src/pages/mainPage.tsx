@@ -12,10 +12,6 @@ const MainPage:React.FC = () =>{
     const {data,error,loading} = useTypedSelector(state => state.data)
     let dataVisible:dataType[] = data
 
-    const allPages = Math.ceil(data.Lenght/10)
-
-
-
     useEffect(()=>{
         dispatch(fetchDataTable())
         dataVisible = data

@@ -1,6 +1,6 @@
 import axios from "axios"
 import { Dispatch } from "react"
-import { DataAction, DataActionTypes } from "../../types/types"
+import { DataAction, DataActionTypes, dataType } from "../../types/types"
 
 export const fetchDataTable = () =>{
     return async(dispatch: Dispatch<DataAction>)=>{

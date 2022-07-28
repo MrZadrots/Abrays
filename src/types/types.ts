@@ -9,6 +9,9 @@ export enum DataActionTypes{
     FETCH_DATA = 'FETCH_DATA',
     FETCH_DATA_SUCCESS = 'FETCH_DATA_SUCCESS',
     FETCH_DATA_ERROR = 'FETCH_DATA_ERROR',
+
+    SORTED_DATA_SUCCESS = 'SORTERED_DATA_SUCCESS',
+    SORTED_DATA_ERROR = 'SORTERED_DATA_ERROR'
 }
 
 
@@ -35,7 +38,19 @@ interface FetchDataErrorAction{
     payload:string
 }   
 
-export type DataAction = FetchDataAction | FetchDataErrorAction | FetchDataSuccessAction 
+
+interface SortedDataActionSuccess{
+    type:DataActionTypes.SORTED_DATA_SUCCESS,
+    payload:dataType[]
+}
+interface SortedDataActionError{
+    type:DataActionTypes.SORTED_DATA_ERROR,
+    payload:string
+}
+
+
+export type DataAction = FetchDataAction | FetchDataErrorAction | FetchDataSuccessAction |
+                         SortedDataActionSuccess | SortedDataActionError
 
 
 export interface dataTypeList extends Array<dataType>{}

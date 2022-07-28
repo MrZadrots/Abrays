@@ -22,23 +22,45 @@ export const Pagination:React.FC<IPagination> = ({onPageChange,totalCount,siblin
     }
     const onNext = (e:any) =>{
         if(currentPage+2<=lastPage){
-            console.log("onNext")
-            console.log("to",currentPage)
+            const oldActive = document.getElementsByClassName('page-link')
+            for ( let i=0; i<oldActive.length;i++){
+              if(oldActive[i].classList.contains('active')){
+                  oldActive[i].classList.remove('active')
+                  oldActive[i+1].classList.add('active')
+                  break;
+              }
+            }
             onPageChange(currentPage+2,e)
-            console.log("do", currentPage)
         }
     }
 
     const onPrev = (e:any) =>{
-        console.log("onPrev")
-        if(currentPage-1!>=0){
+        if(currentPage-1>=0){
+            const oldActive = document.getElementsByClassName('page-link')
+            for ( let i=0; i<oldActive.length;i++){
+              if(oldActive[i].classList.contains('active')){
+                  oldActive[i].classList.remove('active')
+                  oldActive[i-1].classList.add('active')
+                  break;
+              }
+            }
             onPageChange(currentPage,e) 
         }
     }
 
     let lastPage = typeof(paginationRange) == 'object'? paginationRange[paginationRange.length-1] : -1
     
-    console.log("asdasdadasadasda")
+
+    const onChangeActive = (e:any,pageNumber:number|string) => {
+      const oldActive = document.getElementsByClassName('active')
+      for (let i=0; i< oldActive.length;i++){
+        oldActive[i].classList.remove('active')
+      }
+      e.currentTarget.classList.add('active')
+      e.target.href = '#'+(pageNumber).toString()
+    }
+
+    
     return(
         <ul
         className='pagination'
@@ -47,27 +69,47 @@ export const Pagination:React.FC<IPagination> = ({onPageChange,totalCount,siblin
           className='pagination-item'
           onClick={onPrev}
         >
-          <a className="page-link my-page-link-right" href="#"><div className="arrow left" /> Назад</a>
+          <a className="page-link my-page-link-right" href="#" onClick={
+                    (e:any)=>{e.target.href = currentPage-1>0 ?"#"+(currentPage-1).toString():e.target.href='#1'}}>
+              <div className="arrow left" /> Назад</a>
         </li>
-        {typeof(paginationRange) == 'object'?paginationRange.map(pageNumber => {
+        {typeof(paginationRange) == 'object'
+        ?
+        paginationRange.map(pageNumber => {
           if (pageNumber  === DOTS) {
-            return <li className="pagination-item dots"><a className="page-link" href="#">&#8230;</a></li>;
+            return <li className="pagination-item dots"><a className="page-link" href=''>&#8230;</a></li>;
           }
   
           return (
+            pageNumber ==1
+            ?
+            <li
+            className='pagination-item'
+            onClick={(e:any) => onPageChange(pageNumber,e)}
+            >
+              <a className="page-link active" href="#" onClick={(e:any)=>onChangeActive(e,pageNumber)}>{pageNumber}</a>
+            </li>
+            :
             <li
               className='pagination-item'
-              onClick={(e) => onPageChange(pageNumber,e)}
+              onClick={(e:any) => onPageChange(pageNumber,e)}
             >
-                <a className="page-link" href="#">{pageNumber}</a>
+                <a className="page-link" href="#" onClick={(e:any)=>onChangeActive(e,pageNumber)}>{pageNumber}</a>
             </li>
           );
-        }): <></>}
+        })
+        : 
+        <></>
+        }
+
         <li
           className='pagination-item'
           onClick={onNext}
         >
-            <a className="page-link my-page-link-left" href="#"><div className="arrow right" />Далее</a>
+          <a className="page-link my-page-link-left" href="#" onClick={
+                  (e:any)=>{e.target.href = '#'+(currentPage+1).toString()}
+                  }>
+            <div className="arrow right" />Далее</a>
         </li>
       </ul>
     )

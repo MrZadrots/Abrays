@@ -1,24 +1,26 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { dataType } from '../../types/types'
 import './search.css'
 import Table from '../table/table'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
+import { Line } from '../line/line'
+import { Pagination } from '../pagination/pagination'
+
 
 
 interface ISearchInput{
     dataVisiavble: dataType[]
 }
-
+const PageSize = 10
 const SearchInput:React.FC<ISearchInput> = (dataVisiavble) =>{
 
     const [searchText, setSearchText] = useState('')
+
     const [data, setData] = useState<dataType[]>(dataVisiavble.dataVisiavble)
 
     const onChangeHandler = (e:any)=> {
-        if(searchText==''){
-            setData(dataVisiavble.dataVisiavble)
-        }
         setSearchText(e.target.value)
-        /*line.id.toString().toLowerCase().includes(searchText.toLowerCase()) ||*/ 
         const filteredData = dataVisiavble.dataVisiavble.filter(line =>{
             return line.id.toString().toLowerCase().includes(searchText.toLowerCase()) || 
                 line.title.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -27,73 +29,51 @@ const SearchInput:React.FC<ISearchInput> = (dataVisiavble) =>{
         setData(filteredData)
     }
 
-
-    const sorted = (massive:dataType[],name:string,mode:number) =>{
-        console.log("DATA", massive)
-        console.log("name",name)
-        console.log("method",mode)
+    const sorted = (massive:dataType[],name:string,mode:boolean) =>{
         switch(name){
             case 'id':
-                if(mode===1){
-                    return massive.sort((a, b) => a.id > b.id ? 1 : -1)
+                if(mode){ 
+                    return [...massive].sort((a, b) => a.id > b.id ? 1 : -1)
                 }
                 else{
-                    return massive.sort((a, b) => a.id < b.id ? 1 : -1)
-                };
+                    return [...massive].sort((a, b) => a.id < b.id ? 1 : -1)
+                }
             case 'title':
-                if(mode===1){
-                    return massive.sort((a, b) => a.title > b.title ? 1 : -1)
+                if(mode){
+                    return [...massive].sort((a, b) => a.title > b.title ? 1 : -1)
                 }
                 else{
-                    return massive.sort((a, b) => a.title < b.title ? 1 : -1)
+                    return [...massive].sort((a, b) => a.title < b.title ? 1 : -1)
                 }
             
+            case 'body':
+                    if(mode){
+                        return [...massive].sort((a, b) => a.body > b.body ? 1 : -1)
+                    }
+                    else{
+                        return [...massive].sort((a, b) => a.body < b.body ? 1 : -1)
+                    }
             default:
                 return massive   
         }
 
     }
     const sortedHandler = (e:any) =>{
-        console.log(e.target)
-        if(e.target.classList.contains("fa")){
+       if(e.target.classList.contains('fa')){
             e.target.classList.toggle('rotate')
-            if(e.target.classList.contains("id")){
-                if(e.target.classList.contains('rotate')){
-                    const tmp = sorted(data,'id',1)
-                    setData(tmp)
-                    console.log("seted DATA", data)
-                }
-                else{
-                    const tmp = sorted(data,'id',0)
-                    setData(tmp)
-                    console.log("seted DATA", data)
-                }
+            if(e.target.classList.contains('id')){
+                
+                const tmp = sorted(data,'id',e.target.classList.contains('rotate'))
+                setData(tmp)
             }
-
-            if(e.target.classList.contains("title")){
-                if(e.target.classList.contains('rotate')){
-                    const tmp = sorted(data,'title',1)
-                    setData(tmp)
-                    console.log("seted DATA", data)
-                }
-                else{
-                    const tmp = sorted(data,'title',0)
-                    setData(tmp)
-                    console.log("seted DATA", data)
-                }
+            if(e.target.classList.contains('title')){
+                const tmp = sorted(data,'title',e.target.classList.contains('rotate'))
+                setData(tmp)
+                
             }
-
-            if(e.target.classList.contains("body")){
-                if(e.target.classList.contains('rotate')){
-                    const tmp = sorted(data,'body',1)
-                    setData(tmp)
-                    console.log("seted DATA", data)
-                }
-                else{
-                    const tmp = sorted(data,'body',0)
-                    setData(tmp)
-                    console.log("seted DATA", data)
-                }
+            if(e.target.classList.contains('body')){
+                const tmp = sorted(data,'body',e.target.classList.contains('rotate'))
+                setData(tmp)
             }
         }
     }
@@ -119,7 +99,7 @@ const SearchInput:React.FC<ISearchInput> = (dataVisiavble) =>{
             </div>
             <div className='container'>
                 <div className="row">
-                    <Table dataVisible={data} sortedHandler={sortedHandler}/>
+                    <Table dataVisible={data} sortedHandler={sortedHandler}/>    
                 </div>
             </div>
         </div>

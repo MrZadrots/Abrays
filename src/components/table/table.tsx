@@ -13,11 +13,10 @@ interface ITable{
 }
 const Table:React.FC<ITable> = ({dataVisible,sortedHandler}) =>{
     const [currentPage , setCurrentPage] = useState(0)
-    const paginationHandler = (e:any) =>{
-        console.log(e.target.getAttribute('value'))
-        setCurrentPage(e.target.getAttribute('value')-1)
+
+    const onPageChange = (page:number,e:any) => {
+        setCurrentPage(page-1)
     }
-    
     return(
         <div className="container">
             <div className="row">
@@ -58,12 +57,7 @@ const Table:React.FC<ITable> = ({dataVisible,sortedHandler}) =>{
             <div className="row">
                 <div className="col-md-12 paginationMain">
                     <Pagination 
-                        onPageChange={(page:number,e:any) => {
-                            console.log("E", e.target)
-                            e.target.classList.add(":active")
-                            setCurrentPage(page-1)
-                        
-                        }}
+                        onPageChange={onPageChange}
                         totalCount={dataVisible.length}
                         pageSize={PageSize}
                         siblingCount={1}

@@ -16,7 +16,7 @@ thead{
     width: 100px;
 }
 .thContainer{
-    min-width: 64px;
+    min-width: 84px;
 }
 
   
@@ -26,5 +26,4 @@ thead{
 
 .rotate {
     transform: rotate(180deg);
-    padding-left: 34px;
 }

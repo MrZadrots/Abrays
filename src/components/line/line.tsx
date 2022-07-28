@@ -1,6 +1,6 @@
 import React from "react";
 import { dataType } from "../../types/types";
-
+import './line.css'
 
 interface LineItemProps{
     line:dataType;
@@ -8,9 +8,9 @@ interface LineItemProps{
 export const Line:React.FC<LineItemProps> = ({line}) =>{
     return(
         <tr>
-            <td>{line.id.toLocaleString()}</td>
-            <td>{line.title}</td>
-            <td>{line.body}</td>
+            <td><span className="lineText">{line.id.toLocaleString()}</span></td>
+            <td><span className="lineText">{line.title}</span></td>
+            <td><span className="lineText">{line.body}</span></td>
         </tr>
     )
 }
