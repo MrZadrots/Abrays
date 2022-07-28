@@ -14,6 +14,26 @@ export enum DataActionTypes{
     SORTED_DATA_ERROR = 'SORTERED_DATA_ERROR'
 }
 
+export interface IPagination{
+    onPageChange:any,
+    totalCount:number,
+    siblingCount:number,
+    currentPage:number,
+    pageSize: number,
+    className:string,
+}
+
+
+export interface ISearchInput{
+    dataVisiavble: dataType[]
+}
+
+
+export interface ITable{
+    dataVisible:dataType[],
+    sortedHandler:any
+}
+
 
 export interface DataState{
     data: any;

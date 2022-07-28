@@ -2,17 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { dataType } from '../../types/types'
 import './search.css'
 import Table from '../table/table'
-import { useAppDispatch } from '../../hooks/useAppDispatch'
-import { useTypedSelector } from '../../hooks/useTypedSelector'
-import { Line } from '../line/line'
-import { Pagination } from '../pagination/pagination'
+import { ISearchInput } from '../../types/types'
 
 
-
-interface ISearchInput{
-    dataVisiavble: dataType[]
-}
-const PageSize = 10
 const SearchInput:React.FC<ISearchInput> = (dataVisiavble) =>{
 
     const [searchText, setSearchText] = useState('')

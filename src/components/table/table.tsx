@@ -3,14 +3,11 @@ import './table.css'
 import { Line } from '../line/line'
 import { dataType } from '../../types/types'
 import {Pagination} from '../pagination/pagination'
-
+import { ITable } from '../../types/types'
 
 
 const PageSize = 10
-interface ITable{
-    dataVisible:dataType[],
-    sortedHandler:any
-}
+
 const Table:React.FC<ITable> = ({dataVisible,sortedHandler}) =>{
     const [currentPage , setCurrentPage] = useState(0)
 

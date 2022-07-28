@@ -1,17 +1,9 @@
 import React from "react";
 import { DOTS, usePagination } from "../../hooks/usePagination";
 import './pagination.css'
+import { IPagination } from "../../types/types";
 
 
-
-interface IPagination{
-    onPageChange:any,
-    totalCount:number,
-    siblingCount:number,
-    currentPage:number,
-    pageSize: number,
-    className:string,
-}
 
 export const Pagination:React.FC<IPagination> = ({onPageChange,totalCount,siblingCount=1,currentPage,pageSize,className}) =>{
     const paginationRange = usePagination({currentPage, totalCount,siblingCount,pageSize})
@@ -107,7 +99,7 @@ export const Pagination:React.FC<IPagination> = ({onPageChange,totalCount,siblin
           onClick={onNext}
         >
           <a className="page-link my-page-link-left" href="#" onClick={
-                  (e:any)=>{e.target.href = '#'+(currentPage+1).toString()}
+                  (e:any)=>{e.target.href = '#'+(currentPage+2).toString()}
                   }>
             <div className="arrow right" />Далее</a>
         </li>
