@@ -24,7 +24,7 @@ const Table:React.FC<ITable> = ({dataVisible,sortedHandler}) =>{
                                 <th scope='col'>
                                     <div className="thContainer" >
                                         <span >ID</span>
-                                        <i className="fa fa-angle-down id"  aria-hidden="false"  onClick={sortedHandler}></i>
+                                        <i className="fa fa-angle-down id rotate"  aria-hidden="false"  onClick={sortedHandler}></i>
                                     
                                     </div>
                                 </th>
